@@ -1,0 +1,6 @@
+- Figure out how much data will be enough
+- Set up api to retrieve data
+    - Basic data?
+    - Compiled data?
+- Show in graph
+- dockerize?
