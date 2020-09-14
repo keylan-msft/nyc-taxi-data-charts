@@ -13,6 +13,7 @@ This is a dockerized web application using MySQL, express, Sequelize, Vue.js, an
     - [List of Taxi Types](#list-of-taxi-types)
     - [Trip Summary Data](#trip-summary-data)
 - [Data Import](#data-import)
+- [Tests](#tests)
 
 ## References
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
@@ -144,3 +145,23 @@ Get trip summary data with optional filters.
     }
 ]
 ```
+
+## Data Import
+
+Included with the repo, in db/init.sql is the already processed and summarized data for January 2018.
+
+This data was processed using app/scripts/summarize.js, which goes through the NYC taxi data csv files - grouping the trips by taxi type/pickup borough/dropoff borough/pickup date/pickup hour, and then stores the results in the trip_summaries table.
+
+While there shouldn't be a need at this point to run the summarize.js script again, it can be run by adding the January 2018 csv data files to the app/data/ folder and calling the various npm scripts from the web container:
+
+```sh
+$ yarn run yellow
+$ yarn run green
+$ yarn run fhv
+```
+
+In order to load data from other months/years, the app/package.json would need to be adjusted to work with those files.  Additionally, if the data structure of the csv files for other months has changed, the summarize.js script would also need adjusting.
+
+## Tests
+
+Tests can be run via the tests.sh script.

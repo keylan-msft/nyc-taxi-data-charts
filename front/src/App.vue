@@ -49,9 +49,21 @@ export default {
       numTripOptions: {
         maintainAspectRatio: false,
         scales: {
-          xAxes: [{ stacked: true }],
+          xAxes: [
+            {
+              scaleLabel: {
+                display: true,
+                labelString: 'Hour of Day'
+              },
+              stacked: true
+            }
+          ],
           yAxes: [
             {
+              scaleLabel: {
+                display: true,
+                labelString: '# of Trips'
+              },
               stacked: true,
               ticks: {
                 beginAtZero: true

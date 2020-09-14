@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx nodemon node app/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "green": "node scripts/summarize.js data/green_tripdata_2018-01.csv",
     "yellow": "node scripts/summarize.js data/yellow_tripdata_2018-01.csv",
     "fhv": "node scripts/summarize.js data/fhv_tripdata_2018-01.csv"
@@ -27,6 +27,10 @@
     "eslint": "^7.9.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "prettier": "^2.1.1"
+    "jest": "^26.4.2",
+    "mock-express-request": "^0.2.2",
+    "mock-express-response": "^0.2.2",
+    "prettier": "^2.1.1",
+    "sequelize-mock": "^0.10.2"
   }
 }
