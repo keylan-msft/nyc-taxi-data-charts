@@ -29,8 +29,8 @@ This is a dockerized web application using MySQL, express, Sequelize, Vue.js, an
 
 ### Steps
 ```sh
-$ git clone <url here>
-$ cd <path>
+$ git clone https://github.com/keylan-msft/nyc-taxi-data-charts
+$ cd nyc-taxi-data-charts
 $ docker-compose build
 $ docker-compose up
 ```

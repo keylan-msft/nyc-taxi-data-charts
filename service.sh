@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-docker exec -it msft_web_1 yarn run green
-docker exec -it msft_web_1 yarn run yellow
-docker exec -it msft_web_1 yarn run fhv
+docker exec -it ${PWD##*/}_web_1 yarn run green
+docker exec -it ${PWD##*/}_web_1 yarn run yellow
+docker exec -it ${PWD##*/}_web_1 yarn run fhv

@@ -76,10 +76,16 @@ export default {
   },
   methods: {
     async setData() {
-      this.loaded = false;
+      // Pre-populate all hours with 0 trips
+      const greenData = Array(24).fill(0);
+      const yellowData = Array(24).fill(0);
+      const fhvData = Array(24).fill(0);
 
       let filters = [`pickup_date=${this.tripDate}`];
 
+      this.loaded = false;
+
+      // borough filters
       if (this.pickup) {
         filters.push(`pickup_borough_id=${this.pickup}`);
       }
@@ -87,8 +93,8 @@ export default {
         filters.push(`dropoff_borough_id=${this.dropoff}`);
       }
 
-      const [greenTripData, yellowTripData, fhvTripData] = await axios
-        .all([
+      try {
+        const [greenTripData, yellowTripData, fhvTripData] = await axios.all([
           this.$api.get(
             '/api/trip_summaries?taxi_type_id=1&' + filters.join('&')
           ),
@@ -98,24 +104,21 @@ export default {
           this.$api.get(
             '/api/trip_summaries?taxi_type_id=3&' + filters.join('&')
           )
-        ])
-        .then(([green, yellow, fhv]) => {
-          return [green.data, yellow.data, fhv.data];
+        ]);
+
+        // Format the data for charts.js
+        greenTripData.data.forEach(trip => {
+          greenData[trip.pickup_hour] += trip.total_trips;
         });
-
-      const greenData = Array(24).fill(0);
-      const yellowData = Array(24).fill(0);
-      const fhvData = Array(24).fill(0);
-
-      greenTripData.forEach(trip => {
-        greenData[trip.pickup_hour] += trip.total_trips;
-      });
-      yellowTripData.forEach(trip => {
-        yellowData[trip.pickup_hour] += trip.total_trips;
-      });
-      fhvTripData.forEach(trip => {
-        fhvData[trip.pickup_hour] += trip.total_trips;
-      });
+        yellowTripData.data.forEach(trip => {
+          yellowData[trip.pickup_hour] += trip.total_trips;
+        });
+        fhvTripData.data.forEach(trip => {
+          fhvData[trip.pickup_hour] += trip.total_trips;
+        });
+      } catch (e) {
+        console.log(e);
+      }
 
       this.numTripData.datasets = [
         {
@@ -142,7 +145,12 @@ export default {
   },
   async mounted() {
     let self = this;
-    this.$api.get('/api/boroughs').then(boroughs => {
+
+    try {
+      // Load boroughs for filters
+      const boroughs = this.$api.get('/api/boroughs');
+
+      // Combine boroughs from api with default Any value
       self.boroughs = [
         { value: null, text: 'Any' },
         ...boroughs.data.map(borough => ({
@@ -150,7 +158,10 @@ export default {
           text: borough.name
         }))
       ];
-    });
+    } catch (e) {
+      console.log(e);
+    }
+
     this.setData();
   },
   watch: {

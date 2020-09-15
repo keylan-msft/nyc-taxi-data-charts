@@ -1,3 +1,6 @@
+CREATE DATABASE taxi;
+USE taxi;
+
 DROP TABLE IF EXISTS `locations`;
 CREATE TABLE `locations` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -7,7 +10,7 @@ CREATE TABLE `locations` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf16;
 
-INSERT INTO `locations` (`location_id`, `borough`, `zone`, `service_zone`)
+INSERT INTO `locations` (`id`, `borough`, `zone`, `service_zone`)
 VALUES
 	(1, 'EWR', 'Newark Airport', 'EWR'),
 	(2, 'Queens', 'Jamaica Bay', 'Boro Zone'),
