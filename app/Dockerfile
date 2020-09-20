@@ -7,6 +7,3 @@ WORKDIR /app
 EXPOSE 5000
 
 ENTRYPOINT ["sh", "./entrypoint.sh"]
-
-# run
-#CMD ["yarn", "run", "dev"]
