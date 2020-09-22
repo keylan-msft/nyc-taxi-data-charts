@@ -49,7 +49,7 @@ describe('manage data', () => {
       data: []
     });
 
-    shallowMount(App, {
+    await shallowMount(App, {
       localVue,
       mocks: {
         $api: {
@@ -66,6 +66,7 @@ describe('manage data', () => {
     });
 
     expect(mockGet).toHaveBeenCalledTimes(4);
+
     expect(mockGet).toHaveBeenCalledWith(
       '/api/trip_summaries?taxi_type_id=1&pickup_date=2018-01-02&pickup_borough_id=1&dropoff_borough_id=2'
     );

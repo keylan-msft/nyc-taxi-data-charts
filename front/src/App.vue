@@ -148,7 +148,7 @@ export default {
 
     try {
       // Load boroughs for filters
-      const boroughs = this.$api.get('/api/boroughs');
+      const boroughs = await this.$api.get('/api/boroughs');
 
       // Combine boroughs from api with default Any value
       self.boroughs = [
